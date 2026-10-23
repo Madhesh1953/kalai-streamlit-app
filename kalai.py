@@ -1,4 +1,4 @@
-
+```python
 import streamlit as st
 
 st.set_page_config(
@@ -7,80 +7,201 @@ st.set_page_config(
     layout="wide"
 )
 
+# ---------------- CSS DESIGN ----------------
 st.markdown("""
 <style>
+
+/* Main background */
 .stApp {
-    background: linear-gradient(135deg, #fff4fa, #f4f0ff, #fff9ef);
+    background: linear-gradient(
+        135deg,
+        #fff4fa,
+        #f4f0ff,
+        #fff9ef
+    );
+    color: #30243d !important;
 }
+
+/* Main text */
+.stApp p,
+.stApp label,
+.stApp li,
+.stApp span {
+    color: #30243d;
+}
+
+/* Main title */
 .hero {
     text-align: center;
     padding: 20px;
 }
+
 .hero h1 {
-    color: #b83276;
-    font-size: 42px;
+    color: #a51d65 !important;
+    font-size: 38px;
+    font-weight: bold;
 }
+
 .hero p {
-    color: #77558f;
-    font-size: 22px;
+    color: #604078 !important;
+    font-size: 21px;
 }
+
+/* Sidebar */
+[data-testid="stSidebar"] {
+    background-color: #fff0f7;
+}
+
+[data-testid="stSidebar"] p,
+[data-testid="stSidebar"] label,
+[data-testid="stSidebar"] span,
+[data-testid="stSidebar"] h2 {
+    color: #482641 !important;
+}
+
+/* Input box */
+.stTextInput input {
+    color: #30243d !important;
+    background-color: #ffffff !important;
+    border: 1px solid #d99cbd !important;
+    border-radius: 10px;
+}
+
+/* Input placeholder */
+.stTextInput input::placeholder {
+    color: #76677c !important;
+    opacity: 1;
+}
+
+/* Story card */
 .story-card {
-    background: white;
-    border: 1px solid #f3cde2;
-    border-radius: 20px;
-    padding: 20px;
+    background-color: #ffffff;
+    border: 1px solid #edc5dd;
+    border-radius: 18px;
+    padding: 18px;
     text-align: center;
-    min-height: 340px;
-    box-shadow: 0 7px 22px #874c8215;
+    min-height: 390px;
+    box-shadow: 0 5px 18px #874c8218;
 }
+
+/* Emoji */
 .emoji {
-    font-size: 48px;
+    font-size: 42px;
+    margin-bottom: 10px;
 }
+
+/* Story title */
 .pill {
     display: inline-block;
-    padding: 7px 12px;
-    border-radius: 25px;
-    background: #ffe0ef;
-    color: #9b3269;
+    padding: 8px 10px;
+    border-radius: 20px;
+    background-color: #ffe0ef;
+    color: #842052 !important;
     font-weight: bold;
     margin: 10px 0;
+    font-size: 14px;
 }
+
+/* Story content */
 .story-text {
     font-size: 16px;
     line-height: 1.8;
-    color: #4d456c;
+    color: #40334f !important;
 }
+
+/* Story ending */
+.story-end {
+    color: #b32370 !important;
+    font-weight: bold;
+    line-height: 1.7;
+}
+
+/* Button */
+.stButton button {
+    background-color: #f7d7e9 !important;
+    color: #7b174c !important;
+    border: 1px solid #d98ab7 !important;
+    border-radius: 12px;
+    font-weight: bold;
+    min-height: 45px;
+}
+
+.stButton button p,
+.stButton button span {
+    color: #7b174c !important;
+}
+
+.stButton button:hover {
+    background-color: #f2bfdc !important;
+    border-color: #b94f8a !important;
+}
+
+/* Footer */
 .footer {
-    background: linear-gradient(90deg, #ffe0ef, #eee3ff);
-    border-radius: 22px;
+    background: linear-gradient(
+        90deg,
+        #ffe0ef,
+        #eee3ff
+    );
+    border: 1px solid #e7c3e0;
+    border-radius: 20px;
     padding: 22px;
-    margin-top: 22px;
+    margin-top: 25px;
     text-align: center;
 }
+
 .footer h2 {
-    color: #a52c6b;
+    color: #8f205c !important;
+    font-size: 25px;
 }
+
+.footer p {
+    color: #49334f !important;
+    font-size: 17px;
+    line-height: 1.8;
+}
+
+/* Small screen adjustment */
+@media (max-width: 768px) {
+    .hero h1 {
+        font-size: 27px;
+    }
+
+    .hero p {
+        font-size: 17px;
+    }
+
+    .story-card {
+        min-height: auto;
+    }
+}
+
 </style>
 """, unsafe_allow_html=True)
 
-# Sidebar
+
+# ---------------- SIDEBAR ----------------
 with st.sidebar:
     st.markdown("## 💗 Oru Chinna Surprise")
 
     name = st.text_input(
-        "Peru",
+        "Peru enter pannu",
         value="Kalai"
     ).strip()
 
     if not name:
         name = "Kalai"
 
-    show_story = st.button("✨ En Payanathai Kaattu")
+    show_story = st.button(
+        "✨ En Payanathai Kaattu",
+        use_container_width=True
+    )
 
     st.write("🌷 Eppovum nambikkaiyoda iru!")
     st.caption("Anbudan, Madhesh 💗")
 
-# Title
+
+# ---------------- TITLE ----------------
 st.markdown(f"""
 <div class="hero">
     <h1>💗 {name.upper()}-ODA AZHAAGANA PAYANAM 💗</h1>
@@ -89,13 +210,19 @@ st.markdown(f"""
 """, unsafe_allow_html=True)
 
 st.markdown("""
-<p style="text-align:center;font-size:18px;">
+<p style="
+    text-align:center;
+    font-size:18px;
+    color:#40334f;
+    line-height:1.8;
+">
 Oru ponnu thannoda kashtangala thaandi,
 kanavugalai niraivethura azhaagana kathai. 🌸
 </p>
 """, unsafe_allow_html=True)
 
-# Story stages
+
+# ---------------- STORY STAGES ----------------
 stages = [
     {
         "emoji": "🌧️",
@@ -143,6 +270,8 @@ stages = [
     }
 ]
 
+
+# ---------------- DISPLAY CARDS ----------------
 columns = st.columns(4, gap="medium")
 
 for column, stage in zip(columns, stages):
@@ -150,35 +279,59 @@ for column, stage in zip(columns, stages):
         st.markdown(f"""
         <div class="story-card">
             <div class="emoji">{stage["emoji"]}</div>
-            <div class="pill">{stage["title"]}</div>
-            <div class="story-text">{stage["text"]}</div>
+
+            <div class="pill">
+                {stage["title"]}
+            </div>
+
+            <div class="story-text">
+                {stage["text"]}
+            </div>
+
             <br>
-            <b style="color:#d94691;">{stage["end"]}</b>
+
+            <div class="story-end">
+                {stage["end"]}
+            </div>
         </div>
         """, unsafe_allow_html=True)
 
-# Final message
+
+# ---------------- FINAL MESSAGE ----------------
 st.markdown(f"""
 <div class="footer">
     <h2>💖 Eppovum Sirichitte Iru, {name.title()}! 💖</h2>
-    <p style="font-size:17px;line-height:1.8;">
-    Un vaazhkaila innum azhaagana pakkangal vara pogudhu.
-    Un kanavugalai nambu, un mela nambikkai vai.
-    Unakku santhoshamum mananimmadhiyum kidaikkanum.
+
+    <p>
+        Un vaazhkaila innum azhaagana pakkangal vara pogudhu.
+        Un kanavugalai nambu, un mela nambikkai vai.
+        Unakku santhoshamum mananimmadhiyum kidaikkanum.
     </p>
+
     <p><b>Anbudan, Madhesh 💗</b></p>
 </div>
 """, unsafe_allow_html=True)
 
-# Button action
+
+# ---------------- BUTTON ACTION ----------------
 if show_story:
     st.balloons()
+
     st.success(
-        f"{name}, un vaazhkaiyila azhaagana naalgal vara vaazhthukkal! 💗"
+        f"{name}, un vaazhkaiyila azhaagana naalgal "
+        "vara vaazhthukkal! 💗"
     )
 
+
+# ---------------- BOTTOM MESSAGE ----------------
 st.markdown("""
-<p style="text-align:center;color:#8b719e;margin-top:18px;">
-Oru chinna Python surprise... un mugathula oru smile vara! 🌷
+<p style="
+    text-align:center;
+    color:#604078;
+    margin-top:20px;
+    font-size:16px;
+">
+Oru chinna surprise... un mugathula oru smile vara! 🌷
 </p>
 """, unsafe_allow_html=True)
+```
