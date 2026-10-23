@@ -1,3 +1,5 @@
+import html
+
 import streamlit as st
 
 st.set_page_config(
@@ -113,6 +115,7 @@ st.markdown("""
     color: #b32370 !important;
     font-weight: bold;
     line-height: 1.7;
+    margin-top: 16px;
 }
 
 /* Button */
@@ -193,32 +196,35 @@ with st.sidebar:
 
     show_story = st.button(
         "✨ En Payanathai Kaattu",
-        use_container_width=True
+        width="stretch"
     )
 
     st.write("🌷 Eppovum nambikkaiyoda iru!")
     st.caption("Anbudan, Madhesh 💗")
 
+# Peru-la < > maadhiri characters irundha HTML udaiyaama irukka
+safe_name = html.escape(name)
+
 
 # ---------------- TITLE ----------------
-st.markdown(f"""
-<div class="hero">
-    <h1>💗 {name.upper()}-ODA AZHAAGANA PAYANAM 💗</h1>
-    <p>Kashtathula irundhu santhosham varaikkum...</p>
-</div>
-""", unsafe_allow_html=True)
+# NOTE: HTML-kulla blank line, 4-space indent irukka koodaadhu.
+# Irundha Streamlit adhai code block-a maathidum.
+st.markdown(
+    '<div class="hero">'
+    f'<h1>💗 {safe_name.upper()}-ODA AZHAAGANA PAYANAM 💗</h1>'
+    '<p>Kashtathula irundhu santhosham varaikkum...</p>'
+    '</div>',
+    unsafe_allow_html=True
+)
 
-st.markdown("""
-<p style="
-    text-align:center;
-    font-size:18px;
-    color:#40334f;
-    line-height:1.8;
-">
-Oru ponnu thannoda kashtangala thaandi,
-kanavugalai niraivethura azhaagana kathai. 🌸
-</p>
-""", unsafe_allow_html=True)
+st.markdown(
+    '<p style="text-align:center; font-size:18px; '
+    'color:#40334f; line-height:1.8;">'
+    'Oru ponnu thannoda kashtangala thaandi, '
+    'kanavugalai niraivethura azhaagana kathai. 🌸'
+    '</p>',
+    unsafe_allow_html=True
+)
 
 
 # ---------------- STORY STAGES ----------------
@@ -227,7 +233,7 @@ stages = [
         "emoji": "🌧️",
         "title": "1. Kashtamaana Naalgal",
         "text": (
-            f"{name}, sila naal unakku kashtama irukkalaam. "
+            f"{safe_name}, sila naal unakku kashtama irukkalaam. "
             "Manasu kashtapadalaam, edhirkaalam pathi bayam varalaam. "
             "Aana indha kashtam un vaazhkai mothamum illa. "
             "Konjam konjama nee munnera mudiyum."
@@ -275,41 +281,30 @@ columns = st.columns(4, gap="medium")
 
 for column, stage in zip(columns, stages):
     with column:
-        st.markdown(f"""
-        <div class="story-card">
-            <div class="emoji">{stage["emoji"]}</div>
-
-            <div class="pill">
-                {stage["title"]}
-            </div>
-
-            <div class="story-text">
-                {stage["text"]}
-            </div>
-
-            <br>
-
-            <div class="story-end">
-                {stage["end"]}
-            </div>
-        </div>
-        """, unsafe_allow_html=True)
+        card_html = (
+            '<div class="story-card">'
+            f'<div class="emoji">{stage["emoji"]}</div>'
+            f'<div class="pill">{stage["title"]}</div>'
+            f'<div class="story-text">{stage["text"]}</div>'
+            f'<div class="story-end">{stage["end"]}</div>'
+            '</div>'
+        )
+        st.markdown(card_html, unsafe_allow_html=True)
 
 
 # ---------------- FINAL MESSAGE ----------------
-st.markdown(f"""
-<div class="footer">
-    <h2>💖 Eppovum Sirichitte Iru, {name.title()}! 💖</h2>
-
-    <p>
-        Un vaazhkaila innum azhaagana pakkangal vara pogudhu.
-        Un kanavugalai nambu, un mela nambikkai vai.
-        Unakku santhoshamum mananimmadhiyum kidaikkanum.
-    </p>
-
-    <p><b>Anbudan, Madhesh 💗</b></p>
-</div>
-""", unsafe_allow_html=True)
+footer_html = (
+    '<div class="footer">'
+    f'<h2>💖 Eppovum Sirichitte Iru, {html.escape(name.title())}! 💖</h2>'
+    '<p>'
+    'Un vaazhkaila innum azhaagana pakkangal vara pogudhu. '
+    'Un kanavugalai nambu, un mela nambikkai vai. '
+    'Unakku santhoshamum mananimmadhiyum kidaikkanum.'
+    '</p>'
+    '<p><b>Anbudan, Madhesh 💗</b></p>'
+    '</div>'
+)
+st.markdown(footer_html, unsafe_allow_html=True)
 
 
 # ---------------- BUTTON ACTION ----------------
@@ -323,14 +318,10 @@ if show_story:
 
 
 # ---------------- BOTTOM MESSAGE ----------------
-st.markdown("""
-<p style="
-    text-align:center;
-    color:#604078;
-    margin-top:20px;
-    font-size:16px;
-">
-Oru chinna surprise... un mugathula oru smile vara! 🌷
-</p>
-""", unsafe_allow_html=True)
-```
+st.markdown(
+    '<p style="text-align:center; color:#604078; '
+    'margin-top:20px; font-size:16px;">'
+    'Oru chinna surprise... un mugathula oru smile vara! 🌷'
+    '</p>',
+    unsafe_allow_html=True
+)
